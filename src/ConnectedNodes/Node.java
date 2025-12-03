@@ -1,124 +1,65 @@
 package ConnectedNodes;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-
-import static ConnectedNodes.NodeManager.*;
+import java.util.List;
 
 public class Node {
-    public ArrayList<Connection> list;
-    public int data;
-    public String nodeName;
-    public String type;
+  private List<Edge> outgoingEdges;
+  private int data;
+  private String nodeName;
+  private Type type;
 
-
-    public Node(int data, String nodeName, String type) {
+  public Node(int data, String nodeName, Type type) {
         this.data = data;
         this.nodeName = nodeName;
         this.type = type;
+    this.outgoingEdges = new ArrayList<>();
+    type.addNode(this);
     }
 
     public Node(int data, String nodeName) {
-        this(data, nodeName, "default");
-    }
-    public void createConnection(String name,Node node){
-
-        Connection newConnection = new Connection();
-        newConnection.connectedTo = node;
-        newConnection.connectionName=name;
-        if (list==null){
-            list = new ArrayList<>();
-        }
-            list.add(newConnection);
+    this(data, nodeName, TypeManager.getDefault());
     }
 
-    public void addNode(int data,String localNodeName){
-        Node newNode = new Node(data,localNodeName);
-        createConnection(nodeName+"-"+localNodeName,newNode);
-        displayConnections();
-    }
-    public void addNode(int data,String localNodeName,String type){
-        Node newNode = new Node(data,localNodeName,type);
-        createConnection(nodeName+"-"+localNodeName,newNode);
-        displayConnections();
+  public void addEdge(String edgeName, Node target) {
+    outgoingEdges.add(new Edge(edgeName, target));
     }
 
+  // Getters and setters
+  public List<Edge> getOutgoingEdges() {
+    return outgoingEdges;
+  }
 
-    public void readNode(){
-        System.out.println("Node Name:"+nodeName);
-        System.out.println("Node Data:"+data);
-        System.out.println();
+  public void setOutgoingEdges(List<Edge> outgoingEdges) {
+    this.outgoingEdges = outgoingEdges;
+  }
+
+  public int getData() {
+    return data;
+  }
+
+  public void setData(int data) {
+    this.data = data;
+  }
+
+  public String getNodeName() {
+    return nodeName;
+  }
+
+  public void setNodeName(String nodeName) {
+    this.nodeName = nodeName;
+  }
+
+  public Type getType() {
+    return type;
+  }
+
+  public void setType(Type newType) {
+    if (newType == null) throw new IllegalArgumentException("Type cannot be null");
+    if (this.type != null) {
+      this.type.removeNode(this);
     }
-    public void displayConnections(){
-        if (!list.isEmpty()) {
-            for (Connection current : list) {
-                System.out.print(current.connectionName+" ");
-            }
-        }
-        System.out.println();
+    this.type = newType;
+    newType.addNode(this);
     }
-
-    public Node findNode(String targetName) {
-        return findNodeDFS(this, targetName, new HashSet<>());
-    }
-
-
-
-    public void printSum() {
-        System.out.println();
-        System.out.println("Total Value Of Data Sum :" +returnSum());
-        System.out.println();
-    }
-    public int returnSum() {
-        HashSet<Node> visited = new HashSet<>();
-        return dfsSum(this, visited, 0, true);
-    }
-
-
-
-
-    public void printSumByType(String targetType) {
-        System.out.println();
-        System.out.println("Total Value Of Data Sum " + returnSumByType()+ " For Type " + targetType);
-        System.out.println();
-    }
-    public int returnSumByType(String targetType) {
-        HashSet<Node> visited = new HashSet<>();
-        return dfsPrintByType(this, visited, 0, true, targetType);
-
-    }
-    public void printSumByType() {
-        printSumByType("default"); // default tipi burada belirledik
-    }
-    public int returnSumByType() {
-        HashSet<Node> visited = new HashSet<>();
-        return dfsPrintByType(this, visited, 0, true, "default");
-
-    }
-
-
-
-
-    public void removeConnection(String connectionName){
-        for (Connection current:list){
-            if (Objects.equals(current.connectionName, connectionName)){
-                list.remove(current);
-                System.out.println("Required Connection Deleted");
-                break;
-            }
-            System.out.println("No Conncetion Found to Delete");
-        }
-
-    }
-
-    public void replaceTypeForAll(String fromType, String toType) {
-        java.util.HashSet<Node> visited = new java.util.HashSet<>();
-        dfsReplaceType(this, visited, fromType, toType);
-    }
-
-
-
-
-
 }

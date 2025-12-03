@@ -3,6 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+qodana.yaml
 
 ### Eclipse ###
 .apt_generated
@@ -15,6 +16,9 @@ out/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+
+### Temp files ###
+doc.md
 
 ### NetBeans ###
 /nbproject/private/

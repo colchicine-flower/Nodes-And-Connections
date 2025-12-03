@@ -3,38 +3,49 @@ package ConnectedNodes;
 public class NodesApp {
 
     public static void main(String[] args) {
-        Node Node0 = new Node(35,"Node0","A");
-        Node Node1 = new Node(8,"Node1","B");
-        Node Node2 = new Node(1,"Node2","A");
-        Node Node3 = new Node(81,"Node3","B");
-        Node Node5 = new Node(28,"Node5","C");
-        Node Node6 = new Node(3,"Node6");
-        Node Node7 = new Node(5,"Node7");
-        Node Node9 = new Node(44,"Node9","C");
+    // Create nodes using NodeFactory (types will be created if not exist)
+    Node node0 = NodeFactory.createNode(35, "Node0", "A");
+    Node node1 = NodeFactory.createNode(8, "Node1", "B");
+    Node node2 = NodeFactory.createNode(1, "Node2", "A");
+    Node node3 = NodeFactory.createNode(81, "Node3", "B");
+    Node node5 = NodeFactory.createNode(28, "Node5", "C");
+    Node node6 = NodeFactory.createNode(3, "Node6"); // default
+    Node node7 = NodeFactory.createNode(5, "Node7"); // default
+    Node node9 = NodeFactory.createNode(44, "Node9", "C");
 
-        Node0.createConnection("c1",Node1);
-        Node0.createConnection("c2",Node2);
-        Node0.createConnection("c3",Node3);
-        Node2.createConnection("c4",Node3);
-        Node3.createConnection("c5",Node5);
-        Node5.createConnection("c6",Node1);
-        Node5.createConnection("c7",Node6);
-        Node6.createConnection("c8",Node7);
-        Node6.createConnection("c9",Node9);
+    // Connect nodes
+    node0.addEdge("c1", node1);
+    node0.addEdge("c2", node2);
+    node0.addEdge("c3", node3);
+    node2.addEdge("c4", node3);
+    node3.addEdge("c5", node5);
+    node5.addEdge("c6", node1);
+    node5.addEdge("c7", node6);
+    node6.addEdge("c8", node7);
+    node6.addEdge("c9", node9);
 
-        Node0.addNode(101,"Node101");
+    // Add a new node connected to node0
+    NodeFactory.createAndConnect(node0, 101, "Node101");
 
-        Node0.printSum();
-        Node0.printSumByType("A");
+    // Print sum for default type
+    NodePrinter.printSumByType(node0, TypeManager.getDefault());
 
-        Node0.replaceTypeForAll("C","A");
+    // Print sum for type A
+    Type typeA = TypeManager.getType("A");
+    NodePrinter.printSumByType(node0, typeA);
 
-        Node0.printSumByType("A");
+    // Replace type C to A
+    TypeReplacer.replaceType(node0, TypeManager.getType("C"), typeA);
 
-        Node0.findNode("Node101").readNode();
+    // Print sum for type A again
+    NodePrinter.printSumByType(node0, typeA);
 
-
-
-
+    // Find and print node "Node101"
+    Node found = NodeFinder.findNode(node0, "Node101");
+    if (found != null) {
+      NodePrinter.printNode(found);
+    } else {
+      System.out.println("Node not found.");
+    }
     }
 }

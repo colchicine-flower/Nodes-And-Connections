@@ -1,23 +1,28 @@
 # Nodes And Connections – Java Project
 
 This project demonstrates a customizable and expandable node–connection data structure implemented in Java.
-Each Node object stores a numeric value, a name, a type (optional), and maintains a list of Connection objects that link it to other nodes.
+Each Node object stores a numeric value, a name, a type (optional), and maintains a list of Connection objects that link
+it to other nodes.
 With this structure, users can build flexible networks, visualize connections, and perform grouped data calculations.
 
 ## 📌 Features
-🔗 Node & Connection Architecture
+
+### 🔗 Node & Connection Architecture
 Each Node contains:
+
 - A numeric value
 - A name (string)
 - A type (string — optional)
 - A list of outgoing connections
 
 Each Connection contains:
+
 - A connection name
 - The target node to which it links
-This design allows creation of dynamic networks, graphs, or hierarchical structures.
+  This design allows creation of dynamic networks, graphs, or hierarchical structures.
 
-## 📂 Displaying Connections
+### 📂 Displaying Connections
+
 Using the `displayConnections()` method on any node prints all reachable connections visually in a tree-like format.
 Special formatting rules:
 
@@ -26,6 +31,7 @@ Direct children of the starting node are printed in a flat aligned format
 Deeper levels are displayed as a branching tree for easier readability
 
 ### Example Output:
+
 ```Start Node: Node0
 Node1
 Node2
@@ -35,24 +41,31 @@ Node4
      └─ Node6
  └─ Node7
 ```
-## ➕ Summing Node Values
+
+### ➕ Summing Node Values
+
 Two calculation methods exist:
 
 `ConnectionsDataSum()`
+
 - Traverses all connected nodes recursively
 - Prints the total sum of values found in the entire network
 
 `printSumByType(String type)`
+
 - Sums only nodes whose type matches
   - If no type is given, the method uses the caller node's type as the default
 
-`printSumByType()` 
+`printSumByType()`
+
 - Uses current node's own type
 
 `printSumByType("TypeA")`
+
 - Uses explicit type
 
-## 🚀 Example Usage (Main)
+### 🚀 Example Usage (Main)
+
 ```
 Node n0 = new Node(5,"Node0");
 Node n1 = new Node(10,"Node1");
@@ -75,12 +88,15 @@ n0.displayConnections();
 n0.ConnectionsDataSum();
 ```
 
-## 🔧 Where This System Can Be Used
-Use-Case	Example
-Game development	Skill trees, crafting networks, tech trees
-Data visualization	Family trees, organization charts, linked datasets
-AI / Pathfinding	Weighted graph structures
-Education	Teaching recursion, graph traversal, OOP
+### 🔧 Where This System Can Be Used
+
+| Use-Case	          | Example                                             |
+|--------------------|-----------------------------------------------------|
+| Game development   | 	Skill trees, crafting networks, tech trees         |
+| Data visualization | 	Family trees, organization charts, linked datasets |
+| AI / Pathfinding   | 	Weighted graph structures                          |
+| Education	         | Teaching recursion, graph traversal, OOP            |
+
 ## 📌 Summary
 
 This project is an example of an object-oriented and recursive graph system built with Java. It supports:
@@ -90,7 +106,3 @@ This project is an example of an object-oriented and recursive graph system buil
 - Full and grouped numeric calculations
 
 It provides a strong foundation for building more advanced graph-based applications.
-
-Hello, my name is Salih efe Tosunbayraktar. I am a Computer Engineer Student and Im studying in Turkiye/Sivas/Cumhuriyet University.
-This Project i focused on object-oriented programming and data-driven systems.
-I designed a customizable node–connection architecture that supports hierarchical structures, visual connection mapping, and advanced data aggregation.
